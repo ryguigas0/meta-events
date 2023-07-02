@@ -24,3 +24,6 @@ meta_events-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+# SQLite database and generated files
+*.db*
