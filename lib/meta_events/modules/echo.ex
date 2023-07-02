@@ -1,4 +1,4 @@
-defmodule MetaEvents.Events.Echo do
+defmodule MetaEvents.Modules.Echo do
   @behaviour EventBehaviour
 
   @impl true

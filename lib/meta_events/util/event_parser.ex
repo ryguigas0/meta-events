@@ -22,7 +22,7 @@ defmodule EventParser do
   defp handle_validation({:error, _reason} = err, _), do: err
 
   defp handle_validation(:ok, event_name) do
-    event_path = ["MetaEvents", "Events"] ++ String.split(event_name, ".", trim: true)
+    event_path = ["MetaEvents", "Modules"] ++ String.split(event_name, ".", trim: true)
 
     event_module = Module.concat(event_path)
 

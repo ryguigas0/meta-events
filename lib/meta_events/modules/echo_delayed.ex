@@ -1,4 +1,4 @@
-defmodule MetaEvents.Events.EchoDelayed do
+defmodule MetaEvents.Modules.EchoDelayed do
   @behaviour EventBehaviour
 
   @impl true
