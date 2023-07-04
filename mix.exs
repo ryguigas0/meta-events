@@ -23,7 +23,8 @@ defmodule MetaEvents.MixProject do
 
   defp aliases do
     [
-      setup: ["ecto.drop", "ecto.create", "ecto.migrate"]
+      setup: ["ecto.drop", "ecto.create", "ecto.migrate"],
+      test: ["ecto.drop", "ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 
