@@ -3,43 +3,57 @@ defmodule MetaEvents.EventBroker.Server do
 
   require Logger
 
-  @initial_event_history []
+  alias MetaEvents.EventSchema
+
+  import MetaEvents.Util.EventParser
+  import MetaEvents.Util.EventHandler
+
+  @genserver_state nil
 
   @impl true
   def init(_) do
-    {:ok, @initial_event_history}
+    {:ok, @genserver_state}
   end
 
   @impl true
-  def handle_call(:event_history, _emmiter, event_history) do
-    {:reply, event_history, event_history}
+  def handle_call(:event_history, _emmiter, _) do
+    event_history = EventSchema.list()
+    {:reply, event_history, @genserver_state}
   end
 
   @impl true
   def handle_cast(
-        {:emmit_event, %{name: event_name, payload: payload, emmiter: emmiter}},
-        event_history
+        {:emmit_event, event},
+        _
       ) do
-    result =
-      event_name
-      |> EventParser.parse_event_name_to_module()
-      |> handle_event_module(payload, emmiter)
-
-    updated_event_history = event_history ++ [{event_name, payload, result}]
-
-    {:noreply, updated_event_history}
+    event
+    |> EventSchema.insert()
+    |> handle_insert_schema()
   end
 
-  defp handle_event_module({:error, _reason} = err, _, _), do: err
+  defp handle_insert_schema({:ok, event}) do
+    event.name
+    |> parse_event_name_to_module()
+    |> handle_event_module(event.payload, event.emmiter, event.id)
+  end
 
-  defp handle_event_module({:ok, event_module}, payload, emmiter) do
-    try do
-      Task.start_link(fn ->
-        event_module.call(payload, emmiter)
-      end)
-    rescue
-      _e in UndefinedFunctionError -> {:error, :undefined_event}
-    end
+  defp handle_insert_schema({:error, _invalid_changeset} = err), do: err
+
+  defp handle_event_module({:error, _reason} = err, _, _, _), do: err
+
+  defp handle_event_module({:ok, event_module}, payload, emmiter, event_id) do
+    Task.start_link(fn ->
+      try do
+        payload
+        |> event_module.call(emmiter)
+      rescue
+        UndefinedFunctionError ->
+          {:error, :undefined_event}
+      end
+      |> handle_event_result(event_id)
+    end)
+
+    {:noreply, @genserver_state}
   end
 
   def start_link(opts) do

@@ -14,8 +14,10 @@ defmodule MetaEvents.EventBroker.Client do
   Emmits an event to the EventBroker genserver
 
   ## Example
-    iex> event = %{name: "Hello", payload: %{message: "Hello, my name is: "}, emmiter: :guilherme}
+    iex> event = %{name: "Hello", payload: %{message: "Hello, my name is: "}, emmiter: "guilherme"}
+
     iex> MetaEvents.EventBroker.Client.emmit_event(event)
+
     :ok
   """
   @spec emmit_event(event()) :: :ok

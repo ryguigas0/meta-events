@@ -8,4 +8,7 @@ defmodule MetaEvents.Modules.Hello do
   def call(%{}, emmiter) do
     IO.puts("Hello #{emmiter}!")
   end
+
+  @impl true
+  def call(_, _), do: {:error, :invalid_payload}
 end
