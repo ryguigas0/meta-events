@@ -24,14 +24,18 @@ defmodule MetaEvents.EventBroker.Server do
   end
 
   @impl true
-  def handle_cast(
+  def handle_call(
         {:emmit_event, event},
+        _,
         _
       ) do
     event
     |> EventSchema.insert()
     |> handle_insert_schema()
+    |> create_response()
   end
+
+  defp create_response(result), do: {:reply, result, @genserver_state}
 
   defp handle_insert_schema({:ok, event}) do
     event.name
@@ -55,7 +59,7 @@ defmodule MetaEvents.EventBroker.Server do
       |> handle_event_result(event_id)
     end)
 
-    {:noreply, @genserver_state}
+    :ok
   end
 
   def start_link(opts) do

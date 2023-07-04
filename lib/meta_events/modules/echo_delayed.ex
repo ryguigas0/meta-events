@@ -5,7 +5,7 @@ defmodule MetaEvents.Modules.EchoDelayed do
   @behaviour EventBehaviour
 
   @impl true
-  def call(%{message: message, delay: delay}, _) do
+  def call(%{"message" => message, "delay" => delay}, _) do
     Process.sleep(delay)
 
     IO.puts(message)

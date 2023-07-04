@@ -4,7 +4,7 @@ defmodule MetaEvents.Modules.Hello do
   """
   @behaviour EventBehaviour
 
-  def call(%{message: message}, emmiter) do
+  def call(%{"message" => message}, emmiter) do
     IO.puts(message <> "#{emmiter}")
   end
 

@@ -5,7 +5,7 @@ defmodule MetaEvents.Modules.Echo do
   @behaviour EventBehaviour
 
   @impl true
-  def call(%{message: message}, _) do
+  def call(%{"message" => message}, _) do
     IO.puts(message)
   end
 
