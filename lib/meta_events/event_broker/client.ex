@@ -1,6 +1,9 @@
 defmodule MetaEvents.EventBroker.Client do
   import MetaEvents.EventBroker.Server, only: [genserver_name: 0]
 
+  @doc """
+  Shows EventBroker's recorded events
+  """
   def get_history do
     GenServer.call(genserver_name(), :event_history)
   end

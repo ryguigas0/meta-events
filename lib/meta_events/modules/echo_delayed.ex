@@ -1,4 +1,7 @@
 defmodule MetaEvents.Modules.EchoDelayed do
+  @moduledoc """
+  Echoes the value of `message` after `delay` milliseconds
+  """
   @behaviour EventBehaviour
 
   @impl true

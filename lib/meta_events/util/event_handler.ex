@@ -1,4 +1,6 @@
 defmodule MetaEvents.Util.EventHandler do
+  @moduledoc false
+
   alias MetaEvents.EventSchema
 
   def handle_event_result(:ok, event_id),

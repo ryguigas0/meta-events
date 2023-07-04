@@ -1,4 +1,6 @@
 defmodule MetaEvents.EventBroker.Server do
+  @moduledoc false
+
   use GenServer
 
   require Logger

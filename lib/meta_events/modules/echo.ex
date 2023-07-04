@@ -1,4 +1,7 @@
 defmodule MetaEvents.Modules.Echo do
+  @moduledoc """
+  Echoes the value of `message`
+  """
   @behaviour EventBehaviour
 
   @impl true

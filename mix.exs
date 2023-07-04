@@ -8,7 +8,8 @@ defmodule MetaEvents.MixProject do
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      aliases: aliases()
+      aliases: aliases(),
+      source_url: "https://github.com/ryguigas0/meta-events"
     ]
   end
 

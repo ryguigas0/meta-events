@@ -1,4 +1,7 @@
 defmodule MetaEvents.Modules.Hello do
+  @moduledoc """
+  Says hello to the emmiter
+  """
   @behaviour EventBehaviour
 
   def call(%{message: message}, emmiter) do
