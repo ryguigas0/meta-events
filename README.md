@@ -4,10 +4,10 @@ Um experimento usando a metaprogramação do elixir junto com genservers
 
 ## Objetivos
 
-[x] Criar módulos que representam eventos
-[x] Criar um genserver capaz de receber requisições e discernir o módulo e o evento que é necessário chamar
-[x] Persistir o resultado dos eventos em um banco de dados
-[x] Criar um vigia de eventos que engatilha outros eventos
+- [x] Criar módulos que representam eventos
+- [x] Criar um genserver capaz de receber requisições e discernir o módulo e o evento que é necessário chamar
+- [x] Persistir o resultado dos eventos em um banco de dados
+- [x] Criar um vigia de eventos que engatilha outros eventos
 
 ## Como rodar
 
