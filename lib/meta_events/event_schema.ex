@@ -9,7 +9,7 @@ defmodule MetaEvents.EventSchema do
 
   @required_fields [:name]
 
-  @all_fields @required_fields ++ [:emmiter, :payload, :result, :errors]
+  @all_fields @required_fields ++ [:emmiter, :payload, :result]
 
   @event_name_regex ~r/([A-Z][a-z]+\.?)*/
   @event_result_regex ~r/(finished|error): ([a-z]*\_?)+|unfinished/
