@@ -3,18 +3,23 @@ defmodule MetaEvents.Util.EventHandler do
 
   alias MetaEvents.EventSchema
 
-  def handle_event_result(:ok, event_id),
-    do: EventSchema.update!(%{result: "finished: ok"}, event_id)
-
-  def handle_event_result({:ok, atom}, event_id) do
-    atom_string = Atom.to_string(atom)
-
-    EventSchema.update!(%{result: "finished: #{atom_string}"}, event_id)
+  def handle_event_result(:ok, event) do
+    update_event("finished: ok", event.id)
   end
 
-  def handle_event_result({:error, atom}, event_id) do
+  def handle_event_result({:ok, atom}, event) do
     atom_string = Atom.to_string(atom)
 
-    EventSchema.update!(%{result: "error: #{atom_string}"}, event_id)
+    update_event("finished: #{atom_string}", event.id)
+  end
+
+  def handle_event_result({:error, atom}, event) do
+    atom_string = Atom.to_string(atom)
+
+    update_event("error: #{atom_string}", event.id)
+  end
+
+  defp update_event(result, event_id) do
+    EventSchema.update!(%{result: result}, event_id)
   end
 end

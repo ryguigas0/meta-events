@@ -9,9 +9,10 @@ defmodule MetaEvents.EventSchema do
 
   @required_fields [:name]
 
-  @all_fields @required_fields ++ [:emmiter, :payload, :result]
+  @all_fields @required_fields ++ [:emmiter, :payload, :result, :errors]
 
   @event_name_regex ~r/([A-Z][a-z]+\.?)*/
+  @event_result_regex ~r/(finished|error): ([a-z]*\_?)+|unfinished/
 
   @primary_key {:id, :binary_id, autogenerate: true}
 
@@ -39,6 +40,7 @@ defmodule MetaEvents.EventSchema do
     |> cast(changes, @all_fields)
     |> validate_required(@required_fields)
     |> validate_format(:name, @event_name_regex)
+    |> validate_format(:result, @event_result_regex)
     |> validate_length(:emmiter, max: 30)
   end
 
@@ -46,6 +48,7 @@ defmodule MetaEvents.EventSchema do
     event
     |> cast(changes, @all_fields)
     |> validate_format(:name, @event_name_regex)
+    |> validate_format(:result, @event_result_regex)
     |> validate_length(:emmiter, max: 30)
   end
 
