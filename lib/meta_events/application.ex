@@ -6,14 +6,15 @@ defmodule MetaEvents.Application do
   use Application
 
   alias MetaEvents.EventBroker.Server, as: EventBrokerServer
+  alias MetaEvents.EventPubSub.Server, as: EventPubSubServer
 
   @impl true
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: MetaEvents.Worker.start_link(arg)
-      # {MetaEvents.Worker, arg}
+      MetaEvents.Repo,
       {EventBrokerServer, name: EventBrokerServer.genserver_name()},
-      MetaEvents.Repo
+      {Phoenix.PubSub, name: EventPubSubServer.pubsub_name()},
+      {EventPubSubServer, name: EventPubSubServer.genserver_name()}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

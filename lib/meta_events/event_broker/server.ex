@@ -7,7 +7,7 @@ defmodule MetaEvents.EventBroker.Server do
 
   alias MetaEvents.EventSchema
 
-  import MetaEvents.Util.ModuleParser
+  import MetaEvents.Util.Parser.EventModule
   import MetaEvents.Util.EventHandler
 
   @genserver_state nil

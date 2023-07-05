@@ -7,7 +7,7 @@ Um experimento usando a metaprogramação do elixir junto com genservers
 [x] Criar módulos que representam eventos
 [x] Criar um genserver capaz de receber requisições e discernir o módulo e o evento que é necessário chamar
 [x] Persistir o resultado dos eventos em um banco de dados
-[ ] Criar um vigia de eventos que engatilha outros eventos
+[x] Criar um vigia de eventos que engatilha outros eventos
 
 ## Como rodar
 
@@ -18,7 +18,7 @@ Um experimento usando a metaprogramação do elixir junto com genservers
 
     ```elixir
     MetaEvents.EventBroker.Client.emmit_event(%{
-        name: "Events.Hello", 
+        name: "Hello", 
         payload: %{message: "Hello, my name is: "}, 
         emmiter: "guilherme"
     })
@@ -28,4 +28,10 @@ Um experimento usando a metaprogramação do elixir junto com genservers
 
 1. Crie um arquivo `./lib/meta_events/modules/meu_event.ex`
 2. Adicione `@behaviour EventBehaviour`
-3. Crie a sua função `call/2` (para mais informações use no iex: `b EventBehaviour`, `b EventBehaviour.ok_result` e `b EventBehaviour.error_result`)
+3. Crie a sua função `call/2` (para mais informações use no `iex`: `b EventBehaviour`)
+
+## Como criar seus ouvidores (`Listeners`)
+
+1. Crie um arquivo `lib/meta_events/modules/meu_listener.ex`
+2. Adicione `@behaviour ListenerBehaviour`
+3. Crie as funções `call/1` e `listen?/1` (para mais informações use no `iex`: `b ListenerBehaviour`)

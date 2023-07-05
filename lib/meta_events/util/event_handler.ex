@@ -3,6 +3,8 @@ defmodule MetaEvents.Util.EventHandler do
 
   alias MetaEvents.EventSchema
 
+  import MetaEvents.EventPubSub.Client
+
   def handle_event_result(:ok, event) do
     update_event("finished: ok", event.id)
   end
@@ -21,5 +23,6 @@ defmodule MetaEvents.Util.EventHandler do
 
   defp update_event(result, event_id) do
     EventSchema.update!(%{result: result}, event_id)
+    |> broadcast_event()
   end
 end

@@ -16,7 +16,7 @@ defmodule MetaEvents.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger],
+      extra_applications: [:logger, :phoenix_pubsub],
       mod: {MetaEvents.Application, []}
     ]
   end
@@ -35,7 +35,8 @@ defmodule MetaEvents.MixProject do
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
       {:ecto_sql, "~> 3.0"},
       {:ecto_sqlite3, "~> 0.10"},
-      {:jason, "~> 1.4"}
+      {:jason, "~> 1.4"},
+      {:phoenix_pubsub, "~> 2.1"}
     ]
   end
 end
