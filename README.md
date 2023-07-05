@@ -7,6 +7,7 @@ Um experimento usando a metaprogramação do elixir junto com genservers
 [x] Criar módulos que representam eventos
 [x] Criar um genserver capaz de receber requisições e discernir o módulo e o evento que é necessário chamar
 [x] Persistir o resultado dos eventos em um banco de dados
+[ ] Criar um vigia de eventos que engatilha outros eventos
 
 ## Como rodar
 
@@ -17,7 +18,7 @@ Um experimento usando a metaprogramação do elixir junto com genservers
 
     ```elixir
     MetaEvents.EventBroker.Client.emmit_event(%{
-        name: "Hello", 
+        name: "Events.Hello", 
         payload: %{message: "Hello, my name is: "}, 
         emmiter: "guilherme"
     })

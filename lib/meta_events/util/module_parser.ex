@@ -1,4 +1,4 @@
-defmodule MetaEvents.Util.EventParser do
+defmodule MetaEvents.Util.ModuleParser do
   @event_name_regex ~r/([A-Z][a-z]+\.?)*/
 
   defp validate_event_name(event_name) when is_binary(event_name) do

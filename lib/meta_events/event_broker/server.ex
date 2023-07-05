@@ -7,7 +7,7 @@ defmodule MetaEvents.EventBroker.Server do
 
   alias MetaEvents.EventSchema
 
-  import MetaEvents.Util.EventParser
+  import MetaEvents.Util.ModuleParser
   import MetaEvents.Util.EventHandler
 
   @genserver_state nil
@@ -40,23 +40,23 @@ defmodule MetaEvents.EventBroker.Server do
   defp handle_insert_schema({:ok, event}) do
     event.name
     |> parse_event_name_to_module()
-    |> handle_event_module(event.payload, event.emmiter, event.id)
+    |> handle_event_module(event)
   end
 
   defp handle_insert_schema({:error, _invalid_changeset} = err), do: err
 
-  defp handle_event_module({:error, _reason} = err, _, _, _), do: err
+  defp handle_event_module({:error, _reason} = err, _), do: err
 
-  defp handle_event_module({:ok, event_module}, payload, emmiter, event_id) do
+  defp handle_event_module({:ok, event_module}, event) do
     Task.start_link(fn ->
       try do
-        payload
-        |> event_module.call(emmiter)
+        event.payload
+        |> event_module.call(event.emmiter)
       rescue
         UndefinedFunctionError ->
           {:error, :undefined_event}
       end
-      |> handle_event_result(event_id)
+      |> handle_event_result(event)
     end)
 
     :ok

@@ -1,4 +1,4 @@
-defmodule MetaEvents.Modules.EchoDelayed do
+defmodule MetaEvents.Modules.Events.EchoDelayed do
   @moduledoc """
   Echoes the value of `message` after `delay` milliseconds
   """

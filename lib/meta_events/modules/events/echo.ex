@@ -1,4 +1,4 @@
-defmodule MetaEvents.Modules.Echo do
+defmodule MetaEvents.Modules.Events.Echo do
   @moduledoc """
   Echoes the value of `message`
   """

@@ -1,4 +1,4 @@
-defmodule MetaEvents.Modules.Hello do
+defmodule MetaEvents.Modules.Events.Hello do
   @moduledoc """
   Says hello to the emmiter
   """
